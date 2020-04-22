@@ -9,9 +9,9 @@ public class AnimatedCellButton {
         shakeCellButton( button) ;
     }
     private void shakeCellButton(JButton button) {
-        Point point = button.getLocation();
+        Point Bcenter = button.getLocation();
         int delay = 100;
-        Runnable r = new Runnable() {
+        Runnable Bswing = new Runnable() {
           @Override
           public void run() {
             for (int i = 0; i < 100; i++) {
@@ -21,7 +21,7 @@ public class AnimatedCellButton {
                   SwingUtilities.invokeLater(new Runnable() {
                       @Override
                       public void run() {
-                        button.setLocation(new Point(point.x + 3, point.y));
+                        button.setLocation(new Point(Bcenter.x + 3, Bcenter.y));
                       }
                     });
 
@@ -29,21 +29,14 @@ public class AnimatedCellButton {
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                      button.setLocation(point);
+                      button.setLocation(new Point(Bcenter.x - 3, Bcenter.y));
                     }
                   });
                 Thread.sleep(delay);
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                      button.setLocation(new Point(point.x - 3, point.y));
-                    }
-                  });
-                Thread.sleep(delay);
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                      button.setLocation(point);
+                      button.setLocation(Bcenter);
                     }
                   });
                 Thread.sleep(delay);
@@ -53,9 +46,8 @@ public class AnimatedCellButton {
             }
           }
         };
-        Thread ButtonTrad = new Thread(r);
+        Thread ButtonTrad = new Thread(Bswing);
         ButtonTrad.start();
       }
-    
     
 }
