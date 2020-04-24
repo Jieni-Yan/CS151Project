@@ -1,0 +1,72 @@
+import java.awt.Point;
+
+import javax.swing.JButton;
+import javax.swing.SwingUtilities;
+
+public class Button {   
+    public JButton button;
+    public String buttonName;
+    public int shkingTime=0;
+    public Button(String str){
+
+        buttonName=str;
+        button=new JButton(buttonName);
+    }
+    public JButton getButton() {
+        
+        return button;
+    } 
+    public void shakeButton() {
+        final Point point = button.getLocation();
+        final int delay = 75;
+        Runnable r = new Runnable() {
+          @Override
+          public void run() {
+            for (int i = 0; i < shkingTime; i++) {
+              try {
+                  
+                  
+                  SwingUtilities.invokeLater(new Runnable() {
+                      @Override
+                      public void run() {
+                        button.setLocation(new Point(point.x + 5, point.y));
+                      }
+                    });
+
+                //moveButton(new Point(point.x + 5, point.y));
+                Thread.sleep(delay);
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                      button.setLocation(point);
+                    }
+                  });
+               // moveButton(point);
+                Thread.sleep(delay);
+               // moveButton(new Point(point.x - 5, point.y));
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                      button.setLocation(new Point(point.x - 5, point.y));
+                    }
+                  });
+                Thread.sleep(delay);
+                //moveButton(point);
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                      button.setLocation(point);
+                    }
+                  });
+                Thread.sleep(delay);
+              } catch (InterruptedException ex) {
+                ex.printStackTrace();
+              }
+            }
+          }
+        };
+        Thread t = new Thread(r);
+        t.start();
+      }
+
+}
